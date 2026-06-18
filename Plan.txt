@@ -1,0 +1,24 @@
+**Student Performance Analysis Dashboard**
+
+**Libraries Used**
+
+✅ Python
+✅ OOP
+✅ NumPy
+✅ Pandas
+✅ Matplotlib
+✅ Seaborn
+✅ Statistics concepts
+
+No machine learning required.
+
+**Objectives**
+
+Analyze student data and answer questions such as:
+
+What is the average score?
+Which subject has the highest average marks?
+Which students are top performers?
+How are study hours related to marks?
+Are there any outliers?
+What factors seem to influence performance?

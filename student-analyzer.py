@@ -1,4 +1,6 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 file_path = "data.csv"
 
@@ -14,7 +16,7 @@ class StudentAnalyzer:
         )
 
     def statistics(self):
-        return self.df.describe()
+        return self.df.describe().round(2)
     
     def top_student(self):
         return self.df.sort_values(
@@ -43,6 +45,42 @@ class StudentAnalyzer:
 
         return result.to_string(index=False)
     
+    def showBarPlot(self):
+        sns.barplot(data=self.df,x="Name",y="Average")
+        plt.show()
+
+    def showStudentPlot(self, name):
+
+        student = self.df[
+            self.df["Name"].str.lower() == name.lower()
+        ]
+
+        if student.empty:
+            print(f"{name} not found.")
+            return
+
+        student = student.iloc[0]
+
+        subjects = ["Math", "Science", "English"]
+
+        marks = [
+            student["Math"],
+            student["Science"],
+            student["English"]
+        ]
+
+        sns.barplot(
+            x=subjects,
+            y=marks
+        )
+
+        plt.title(f"{name}'s Marks")
+
+        plt.xlabel("Subjects")
+        plt.ylabel("Marks")
+
+        plt.show()
+    
 def main():
 
     analyzer = StudentAnalyzer(file_path)
@@ -54,12 +92,14 @@ def main():
         print("3. Best Student")
         print("4. Lowest Student")
         print("5. Statistic")
-        print("6. Exit")
+        print("6. Avg BarPlot")
+        print("7. Student BarPlot")
+        print("8. Exit")
 
         choice = input("Enter your choice:")
 
         if choice == "1":
-            name = input("Enter name:")
+            name = input("Enter name:").strip()
             print(analyzer.student_report(name))
         elif choice == "2":
             print(analyzer.top_student())
@@ -70,6 +110,11 @@ def main():
         elif choice == "5":
             print(analyzer.statistics())
         elif choice == "6":
+            analyzer.showBarPlot()
+        elif choice == "7":
+            name = input("Enter name:").strip()
+            analyzer.showStudentPlot(name)
+        elif choice == "8":
             print("Thank you for using Student Analyzer.")
             break
         else:
